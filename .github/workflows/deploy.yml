@@ -1,0 +1,39 @@
+name: Deploy to FTP Server
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: ci-cd.michael.neisens.de
+        username: f0172b6e
+        password: fubbi4-keqfoh-hEndot
+        server-dir: /public_html/  # Anpassen an Ihren Server-Pfad
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          .github/**
+          up.sh
+          README.md
+
+    # Alternative: SFTP Deploy (falls Sie SFTP verwenden)
+    # - name: SFTP Deploy
+    #   uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+    #   with:
+    #     server: ${{ secrets.FTP_SERVER }}
+    #     username: ${{ secrets.FTP_USERNAME }}
+    #     password: ${{ secrets.FTP_PASSWORD }}
+    #     local_path: './'
+    #     remote_path: '/var/www/html'
