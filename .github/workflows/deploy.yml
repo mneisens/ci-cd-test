@@ -16,10 +16,10 @@ jobs:
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: ci-cd.michael.neisens.de
-        username: f0172b6e
-        password: fubbi4-keqfoh-hEndot
-        server-dir: /public_html/  # Anpassen an Ihren Server-Pfad
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: /ci-cd.michael-neisens.de/  # All-Inkl Subdomain Pfad
         exclude: |
           **/.git*
           **/.git*/**

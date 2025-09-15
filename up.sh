@@ -3,15 +3,16 @@ git add .
 git commit -m "$*"
 git push
 
-# FTP Upload (bitte Ihre FTP-Zugangsdaten anpassen)
-echo "Uploading to FTP server..."
-# Beispiel mit lftp (installieren Sie es mit: brew install lftp)
-# lftp -u username,password ftp.ihredomain.de -e "mirror --reverse --delete --verbose . /path/to/webroot; quit"
+# FTP Upload zu All-Inkl
+echo "Uploading to All-Inkl FTP server..."
 
-# Beispiel mit rsync über SSH (falls verfügbar)
-# rsync -avz --delete ./ username@server:/path/to/webroot/
+# All-Inkl FTP Upload mit lftp
+# Installieren Sie lftp falls noch nicht vorhanden: brew install lftp
+lftp -u f0172b6e,fubbi4-keqfoh-hEndot ftp.all-inkl.com -e "
+set ftp:ssl-allow no;
+cd /ci-cd.michael-neisens.de/;
+mput *.html;
+quit
+"
 
-# Beispiel mit scp (falls SSH verfügbar)
-# scp -r ./*.html username@server:/path/to/webroot/
-
-echo "FTP Upload configuration needed - please edit up.sh with your FTP credentials"
+echo "Files uploaded to All-Inkl FTP server"
